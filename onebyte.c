@@ -45,12 +45,21 @@ int onebyte_release(struct inode *indoe, struct file *filep)
 	return 0; // always successful
 }
 
+/**
+ * @brief Called whenever the device is read from.
+ * @param filep A pointer to a file object.
+ * @param buf The buffer containing the string to write.
+ * @param count The length of buffer.
+ * @param The offset if required.
+ */
 ssize_t onebyte_read(struct file *filep, char *buf, size_t count,
 	       	loff_t *f_pos)
 {
-	/* please complete the function on your own */
+	/* If the function has been called once, 
+	 * return 0 to stop the process. */
 	if(counter > 0)
 		return 0;
+	/* Invoke copy to user space */
 	copy_to_user(buf, onebyte_data, 1);
 	counter = 1;
 	return 1;
@@ -66,14 +75,19 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count,
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count,
 		loff_t *f_pos)
 {
-	/* please complete the function on your own */
+	/* If the function has been called once, 
+	 * return 0 to stop the process. */
 	if(counter > 0)
 		return 0;
 
+	/* If nothing to write, return 0*/
 	if(count < 1)
 		return 0;
+	/* Make the copy. */
 	*onebyte_data = *buf;
 	counter = 1;
+
+	/* Return 1 if input size was 1 and -ENOSPC otherwise. */
 	if(count == 1)
 		return 1;
 	else

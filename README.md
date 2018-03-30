@@ -13,17 +13,20 @@ If more than one character is written, it will only write the first character an
 
 Instructions
 ------------
-Make
+Make  
 	Makefile is provided. Call $ make.
-Install
+
+Install  
 	$ sudo insmod onebyte.ko
-Uninstall
+
+Uninstall  
 	$ sudo rmmod onebyte.ko
-Running
-	$ mknod /dev/onebyte 61 0
-	$ cat /dev/onebyte
-	$ printf a>/dev/onebyte
-	$ printf abc>/dev/onebyte
+
+Running  
+	$ mknod /dev/onebyte 61 0  
+	$ cat /dev/onebyte  
+	$ printf a>/dev/onebyte  
+	$ printf abc>/dev/onebyte  
 
 
 ~~ joshsiao 2018 ~~
