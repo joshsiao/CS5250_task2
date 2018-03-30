@@ -67,10 +67,17 @@ ssize_t onebyte_write(struct file *filep, const char *buf, size_t count,
 		loff_t *f_pos)
 {
 	/* please complete the function on your own */
+	if(counter > 0)
+		return 0;
+
 	if(count < 1)
 		return 0;
 	*onebyte_data = *buf;
-	return 0;
+	counter = 1;
+	if(count == 1)
+		return 1;
+	else
+		return -ENOSPC;
 }
 
 static int onebyte_init(void)
