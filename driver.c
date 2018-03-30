@@ -47,13 +47,24 @@ ssize_t onebyte_read(struct file *filep, char *buf, size_t count,
 	       	loff_t *f_pos)
 {
 	/* please complete the function on your own */
+	copy_to_user(buf, onebyte_data, 1);
 	return 0;
 }
 
+/**
+ * @brief Called whenever the device is written to.
+ * @param filep A pointer to a file object.
+ * @param buf The buffer containing the string to write.
+ * @param count The length of buffer.
+ * @param The offset if required.
+ */
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count,
 		loff_t *f_pos)
 {
 	/* please complete the function on your own */
+	if(count < 1)
+		return 0;
+	*onebyte_data = *buf;
 	return 0;
 }
 
